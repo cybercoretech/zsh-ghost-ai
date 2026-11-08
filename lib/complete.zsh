@@ -34,6 +34,8 @@ _zga_sanitize() {
   s=${s//$'\e'\[[0-9;?]#[@-~]/}
   s=${s//$'\e'\][^$'\a']#$'\a'/}
   s=${s//[[:cntrl:]]/}
+  # A chat model may echo the prompt sign: "$ ls -la".
+  [[ $s == '$ '* ]] && s=${s#'$ '}
   # Stray inline-code backticks around the whole reply.
   [[ $s == \`*\` ]] && s=${s#\`} s=${s%\`}
   s=${s%%\`\`\`*}

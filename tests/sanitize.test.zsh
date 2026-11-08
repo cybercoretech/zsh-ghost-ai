@@ -21,3 +21,4 @@ t_eq "$(_s 'echo ' '   ')"                      ""             "whitespace-only 
 t_eq "$(_s 'echo ' '')"                         ""             "empty reply"
 local long=${(l:300::x:)}
 t_eq "$(_s 'echo ' "$long")"                    "${(l:200::x:)}" "cut to max-length"
+t_eq "$(_s 'ls -' '$ ls -la')"                 "la"           "echoed prompt sign and line"
