@@ -67,3 +67,35 @@ _zga_error() {
   _zga_state_dir
   print -r -- "$(date '+%F %T') $*" >| "$REPLY/last-error" 2>/dev/null
 }
+
+# _zga_http <method> <url> <timeout-seconds> <json-body> [header lines...]
+#   → REPLY = response body (status 0), or a short error (status 1)
+# Header lines go to curl through a file descriptor, never as arguments, so
+# API keys don't show up in `ps`.
+_zga_http() {
+  local method=$1 url=$2 timeout=$3 body=$4 out errf rc
+  shift 4
+  _zga_state_dir
+  errf="$REPLY/curl.${sysparams[pid]:-$$}.err"
+  if (( $# )); then
+    out=$(print -r -- "$body" | curl -sS -X "$method" --max-time "$timeout" \
+      -H 'Content-Type: application/json' -H @<(print -rl -- "$@") \
+      --data-binary @- -- "$url" 2>"$errf")
+  else
+    out=$(print -r -- "$body" | curl -sS -X "$method" --max-time "$timeout" \
+      -H 'Content-Type: application/json' \
+      --data-binary @- -- "$url" 2>"$errf")
+  fi
+  rc=$?
+  if (( rc == 0 )); then
+    REPLY=$out
+  elif (( rc == 28 )); then
+    REPLY="timed out after ${timeout}s"
+  else
+    REPLY=$(<"$errf")
+    REPLY=${${REPLY#curl: }:-curl exited $rc}
+  fi
+  rm -f -- "$errf"
+  (( rc == 0 ))
+}
+

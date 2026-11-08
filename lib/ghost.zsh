@@ -221,6 +221,7 @@ _zga_init() {
            ghost-ai-dismiss ghost-ai-toggle; do
     zle -N $w
   done
+  zle -N _zga-apply _zga_apply_widget
 
   autoload -Uz add-zle-hook-widget add-zsh-hook
   add-zle-hook-widget line-pre-redraw _zga_pre_redraw
