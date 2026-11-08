@@ -28,7 +28,11 @@ _zga_provider_ollama() {
       + (if $fim == 1 then {suffix: "\n"} else {raw: true} end)') || return 1
 
     _zga_http POST "$endpoint/api/generate" "$timeout" "$body" || {
-      _zga_error "ollama: can't reach $endpoint ($REPLY)"
+      if [[ $REPLY == timed\ out* ]]; then
+        _zga_error "ollama: no reply within ${timeout}s (the model may still be loading; the first request after a while idle can take several seconds)"
+      else
+        _zga_error "ollama: can't reach $endpoint ($REPLY)"
+      fi
       return 1
     }
     reply=$REPLY
@@ -45,3 +49,18 @@ _zga_provider_ollama() {
     return 0
   done
 }
+
+# Load the model in the background so the first keystroke doesn't wait for
+# it (Ollama unloads idle models). Never blocks the shell; errors are ignored.
+_zga_ollama_warm() {
+  local model endpoint
+  _zga_get model;    model=$REPLY
+  _zga_get endpoint; endpoint=${REPLY%/}
+  [[ -n $model ]] || return 0
+  {
+    jq -nc --arg m "$model" '{model: $m, prompt: "", stream: false, keep_alive: "30m"}' |
+      curl -s -m 120 -H 'Content-Type: application/json' --data-binary @- \
+        "$endpoint/api/generate" >/dev/null 2>&1
+  } &!
+}
+

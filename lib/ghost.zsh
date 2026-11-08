@@ -230,5 +230,10 @@ _zga_init() {
   add-zsh-hook precmd _zga_precmd
 
   _zga_is bindkeys && _zga_bind_defaults
+
+  _zga_get provider
+  if [[ $REPLY == ollama ]] && (( _ZGA_ENABLED )) && _zga_is warm-up; then
+    _zga_ollama_warm
+  fi
   return 0
 }

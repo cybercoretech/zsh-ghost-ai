@@ -15,6 +15,7 @@ typeset -gA _ZGA_DEFAULTS=(
   history-lines   20         # recent commands sent as context
   max-files       50         # file names from the current directory sent as context
   bindkeys        yes        # bind the default keys
+  warm-up         yes        # Ollama: load the model in the background at shell start
   enabled         yes
   # Lines matching this (case-insensitive zsh pattern) are never sent and
   # never completed.
@@ -38,6 +39,11 @@ typeset -gA _ZGA_PROVIDER_DEFAULTS=(
 
 # _zga_get <key>  → REPLY
 _zga_get() {
+  # One-off checks (doctor, test) may wait longer than typing can.
+  if [[ $1 == timeout && -n ${_ZGA_TIMEOUT_OVERRIDE-} ]]; then
+    REPLY=$_ZGA_TIMEOUT_OVERRIDE
+    return 0
+  fi
   if zstyle -s ':ghost-ai:settings' "$1" REPLY; then
     return 0
   fi
