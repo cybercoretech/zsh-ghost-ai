@@ -1,0 +1,22 @@
+#autoload
+# ghost-ai: the zsh-ghost-ai command. Subcommands are added milestone by milestone.
+
+local cmd=${1:-status}
+(( $# )) && shift
+case $cmd in
+  version|--version|-V) print -r -- "zsh-ghost-ai $ZGA_VERSION" ;;
+  status)
+    _zga_get provider; local provider=$REPLY
+    _zga_get model
+    local state=off
+    (( _ZGA_ENABLED )) && state=on
+    print -r -- "zsh-ghost-ai $ZGA_VERSION: $state, provider $provider, model ${REPLY:-unset}"
+    ;;
+  help|-h|--help)
+    print -r -- "usage: ghost-ai [status|version|help]"
+    ;;
+  *)
+    print -u2 -r -- "ghost-ai: unknown command '$cmd' (try: ghost-ai help)"
+    return 2
+    ;;
+esac
