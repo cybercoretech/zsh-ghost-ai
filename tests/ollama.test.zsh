@@ -3,7 +3,11 @@
 
 t_case "ollama (live)"
 local model=qwen2.5-coder:1.5b
-if ! curl -s -m 2 http://localhost:11434/api/tags 2>/dev/null | jq -e --arg m "$model" '.models[] | select(.name == $m)' >/dev/null 2>&1; then
+# Check the output, not jq's exit code: jq 1.6 (Ubuntu 22.04) exits 0 with
+# -e on empty input, so a missing server looked like a present model.
+local found=$(curl -s -m 2 http://localhost:11434/api/tags 2>/dev/null |
+  jq -r --arg m "$model" '.models[]? | select(.name == $m) | .name' 2>/dev/null)
+if [[ $found != "$model" ]]; then
   print -r -- "  skip  $T_NAME: Ollama with $model not available"
   return 0
 fi
