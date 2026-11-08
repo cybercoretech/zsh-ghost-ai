@@ -16,7 +16,9 @@ _zga_provider_ollama() {
   fi
 
   _zga_context
-  prompt="$REPLY"$'\n'"\$ $buffer"
+  local ctx=$REPLY
+  _zga_redact "$buffer"
+  prompt="$ctx"$'\n'"\$ $REPLY"
 
   local fim=1
   while :; do

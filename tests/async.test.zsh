@@ -58,3 +58,21 @@ for i in {1..20}; do
 done
 t_eq "$got" "20" "every one of 20 rapid requests got its reply"
 t_stop
+
+t_case "cache"
+t_start "zstyle ':ghost-ai:*' provider fake" "zstyle ':ghost-ai:*' debounce 0" \
+  '_zga_provider_fake() { print -r -- "$1" >> $HOME/calls.log; [[ $1 == "git che" ]] && print -r -- "checkout main"; }'
+t_type 'git che'
+t_wait_post "ckout main"
+t_type $'\C-u'
+t_type 'git che'
+t_dump
+t_eq "$D_POST" "ckout main" "retyping shows the cached ghost text at once"
+t_type $'\C-u'
+t_type 'git chex'
+t_type $'\C-?'
+t_dump
+t_eq "$D_BUFFER|$D_POST" "git che|ckout main" "backspacing to an answered line shows it again"
+local n=${#${(f)"$(<$T_DIR/calls.log)"}[(R)git che]}
+t_eq "$(grep -cx 'git che' $T_DIR/calls.log)" "1" "the provider was asked about 'git che' once"
+t_stop
