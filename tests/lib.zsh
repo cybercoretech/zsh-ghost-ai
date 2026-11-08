@@ -65,7 +65,9 @@ t_dump() {
     t_drain
     if [[ -r $T_DIR/dump ]]; then
       line=$(<$T_DIR/dump)
-      if (( ${line%%$'\x1f'*} > T_SEQ )); then
+      # The shell may be mid-write: only a whole line with a newer sequence counts.
+      local seq=${line%%$'\x1f'*}
+      if [[ $seq == <-> && $line == *$'\x1f'*$'\x1f'*$'\x1f'* ]] && (( seq > T_SEQ )); then
         local -a f=("${(@ps:\x1f:)line}")
         T_SEQ=${f[1]} D_BUFFER=${f[2]} D_POST=${f[3]} D_CURSOR=${f[4]}
         return 0
