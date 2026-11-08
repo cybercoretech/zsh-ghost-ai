@@ -27,6 +27,7 @@ case $cmd in
     _zga_get endpoint; endpoint=$REPLY
     (( _ZGA_ENABLED )) && state=on
     print -r -- "zsh-ghost-ai $ZGA_VERSION: $state"
+    print -r -- "  mode      ${_ZGA_MODE:-auto (decided at the next prompt)}"
     print -r -- "  provider  $provider"
     print -r -- "  model     ${model:-unset}"
     print -r -- "  endpoint  ${endpoint:-unset}"
@@ -56,7 +57,7 @@ case $cmd in
 
   config)
     local key
-    for key in provider model endpoint timeout debounce min-chars max-tokens \
+    for key in mode provider model endpoint timeout debounce min-chars max-tokens \
                max-length history-lines max-files send-history highlight bindkeys \
                api-key-env ignore; do
       _zga_get $key
@@ -138,7 +139,14 @@ case $cmd in
       else print -r -- "  $ok key bindings left to you (bindkeys no)"; fi
     fi
     if (( $+functions[_zsh_autosuggest_start] )); then
-      print -r -- "  $warn zsh-autosuggestions is loaded; both draw the same ghost text. Use strategy mode: zstyle ':ghost-ai:*' mode strategy"
+      if [[ $_ZGA_MODE == standalone ]]; then
+        print -r -- "  $warn zsh-autosuggestions is loaded and mode is standalone: both draw ghost text. Use: zstyle ':ghost-ai:*' mode auto"
+      elif (( ! ${+ZSH_AUTOSUGGEST_USE_ASYNC} )); then
+        print -r -- "  $bad zsh-autosuggestions runs synchronously, so AI suggestions are off (they would freeze typing). Remove 'unset ZSH_AUTOSUGGEST_USE_ASYNC'"
+        (( ++fails ))
+      else
+        print -r -- "  $ok strategy mode: zsh-autosuggestions draws, AI fills in after: ${ZSH_AUTOSUGGEST_STRATEGY}"
+      fi
     fi
     if (( $+functions[_zsh_highlight] )) && [[ ${widgets[ghost-ai-accept]} != user:* ]]; then
       print -r -- "  $warn zsh-syntax-highlighting loaded first; load zsh-ghost-ai before it"

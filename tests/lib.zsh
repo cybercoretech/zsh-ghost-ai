@@ -20,7 +20,7 @@ t_start() {
     print -rl -- "$@"
     print -r -- "source ${(q)ZGA_ROOT}/zsh-ghost-ai.plugin.zsh"
     print -r -- 'typeset -gi _T_SEQ=0'
-    print -r -- '_t_dump() { (( ++_T_SEQ )); print -r -- "$_T_SEQ"$'"'"'\x1f'"'"'"$BUFFER"$'"'"'\x1f'"'"'"$POSTDISPLAY"$'"'"'\x1f'"'"'"$CURSOR" >| '${(q)T_DIR}'/dump; }'
+    print -r -- '_t_dump() { (( ++_T_SEQ )); print -r -- "$_T_SEQ"$'"'"'\x1f'"'"'"$BUFFER"$'"'"'\x1f'"'"'"$POSTDISPLAY"$'"'"'\x1f'"'"'"$CURSOR"$'"'"'\x1f'"'"'"${(j:|:)region_highlight}" >| '${(q)T_DIR}'/dump; }'
     print -r -- 'zle -N _t_dump; bindkey "^X^T" _t_dump'
   } > $T_DIR/.zshrc
   T_SEQ=0
@@ -75,7 +75,7 @@ t_type() {
   t_settle 0.05
 }
 
-typeset -g D_BUFFER D_POST D_CURSOR
+typeset -g D_BUFFER D_POST D_CURSOR D_HL
 typeset -gi T_SEQ=0
 
 # t_dump [seconds] [quiet]: press the dump key and load BUFFER/POSTDISPLAY/
@@ -89,9 +89,9 @@ t_dump() {
       line=$(<$T_DIR/dump)
       # The shell may be mid-write: only a whole line with a newer sequence counts.
       local seq=${line%%$'\x1f'*}
-      if [[ $seq == <-> && $line == *$'\x1f'*$'\x1f'*$'\x1f'* ]] && (( seq > T_SEQ )); then
+      if [[ $seq == <-> && $line == *$'\x1f'*$'\x1f'*$'\x1f'*$'\x1f'* ]] && (( seq > T_SEQ )); then
         local -a f=("${(@ps:\x1f:)line}")
-        T_SEQ=${f[1]} D_BUFFER=${f[2]} D_POST=${f[3]} D_CURSOR=${f[4]}
+        T_SEQ=${f[1]} D_BUFFER=${f[2]} D_POST=${f[3]} D_CURSOR=${f[4]} D_HL=${f[5]}
         return 0
       fi
     fi

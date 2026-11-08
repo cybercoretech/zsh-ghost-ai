@@ -21,7 +21,7 @@ fi
 
 () {
   local f
-  for f in config redact context cache complete providers async ghost; do
+  for f in config redact context cache complete providers async ghost strategy; do
     if [[ $f == providers ]]; then
       for f in "$ZGA_ROOT"/lib/providers/*.zsh(N); do source "$f"; done
     else

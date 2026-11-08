@@ -12,6 +12,10 @@
 
 typeset -g _ZGA_SUGGESTION="" _ZGA_LAST_BUFFER="" _ZGA_QUIET_FOR="" _ZGA_LAST_HL=""
 typeset -gi _ZGA_ENABLED=1 _ZGA_LAST_STATUS=0
+# standalone: we draw the ghost text. strategy: zsh-autosuggestions draws it
+# and asks us through _zsh_autosuggest_strategy_ghost_ai (lib/strategy.zsh).
+# Empty until decided (mode auto decides at the first prompt).
+typeset -g _ZGA_MODE=""
 typeset -gA _ZGA_FALLBACK   # "<keymap><keys>" -> widget the key had before us
 
 # Widgets whose edits may start a request. History moves, completion menus,
@@ -70,6 +74,7 @@ _zga_wants_request() {
 
 # Called on every redraw (zle-line-pre-redraw).
 _zga_pre_redraw() {
+  [[ $_ZGA_MODE == strategy ]] && return 0   # zsh-autosuggestions draws
   (( _ZGA_ENABLED )) || { [[ -n $POSTDISPLAY ]] && _zga_hide; return 0; }
 
   if [[ $BUFFER == "$_ZGA_LAST_BUFFER" ]]; then
@@ -115,6 +120,7 @@ _zga_fallback() {
 
 # → / End: take the whole suggestion, else do what the key did before.
 _zga_widget_accept() {
+  [[ $_ZGA_MODE == strategy ]] && { _zga_fallback "$1"; return; }
   if [[ -n $POSTDISPLAY ]] && (( CURSOR == $#BUFFER )); then
     BUFFER+=$POSTDISPLAY
     CURSOR=$#BUFFER
@@ -132,6 +138,7 @@ ghost-ai-accept-end-of-line() { _zga_widget_accept .end-of-line; }
 ghost-ai-accept-word() {
   emulate -L zsh
   setopt extendedglob
+  [[ $_ZGA_MODE == strategy ]] && { _zga_fallback .forward-word; return; }
   if [[ -n $POSTDISPLAY ]] && (( CURSOR == $#BUFFER )); then
     local word=${(M)POSTDISPLAY##[[:space:]]#[^[:space:]]#}
     [[ -n $word ]] || word=$POSTDISPLAY
@@ -146,6 +153,7 @@ ghost-ai-accept-word() {
 
 # Esc: hide the suggestion for this line.
 ghost-ai-dismiss() {
+  [[ $_ZGA_MODE == strategy ]] && { _zga_fallback undefined-key; return; }
   if [[ -n $POSTDISPLAY ]]; then
     _ZGA_QUIET_FOR=$BUFFER
     _zga_reset
@@ -170,6 +178,7 @@ ghost-ai-toggle() {
 # --- hooks -----------------------------------------------------------------
 
 _zga_line_init() {
+  [[ -z $_ZGA_MODE ]] && _zga_resolve_mode
   _ZGA_LAST_BUFFER=$BUFFER
   _ZGA_QUIET_FOR=""
   _ZGA_SUGGESTION=""

@@ -14,6 +14,7 @@ typeset -gA _ZGA_DEFAULTS=(
   max-length      200        # characters of ghost text, at most
   history-lines   20         # recent commands sent as context
   max-files       50         # file names from the current directory sent as context
+  mode            auto       # auto | standalone | strategy (zsh-autosuggestions)
   bindkeys        yes        # bind the default keys
   warm-up         yes        # Ollama: load the model in the background at shell start
   enabled         yes

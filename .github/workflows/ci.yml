@@ -22,8 +22,8 @@ jobs:
             zsh: "5.9"
     steps:
       - uses: actions/checkout@v4
-      - name: Install zsh, jq, shellcheck
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq zsh jq shellcheck
+      - name: Install zsh, jq, shellcheck, and the plugins tested alongside
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq zsh jq shellcheck python3 zsh-autosuggestions zsh-syntax-highlighting
       - name: Syntax
         run: |
           zsh --version
