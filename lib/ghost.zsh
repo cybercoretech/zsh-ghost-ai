@@ -131,14 +131,16 @@ _zga_widget_accept() {
     _zga_fallback "$1"
   fi
 }
-ghost-ai-accept()             { _zga_widget_accept .forward-char; }
-ghost-ai-accept-end-of-line() { _zga_widget_accept .end-of-line; }
+# Fallbacks use the plain widget names (not .forward-char), so another plugin's
+# wrapper around them still runs: zsh-autosuggestions accepts through it.
+ghost-ai-accept()             { _zga_widget_accept forward-char; }
+ghost-ai-accept-end-of-line() { _zga_widget_accept end-of-line; }
 
 # Alt+→ / Alt+f: take the next word of the suggestion.
 ghost-ai-accept-word() {
   emulate -L zsh
   setopt extendedglob
-  [[ $_ZGA_MODE == strategy ]] && { _zga_fallback .forward-word; return; }
+  [[ $_ZGA_MODE == strategy ]] && { _zga_fallback forward-word; return; }
   if [[ -n $POSTDISPLAY ]] && (( CURSOR == $#BUFFER )); then
     local word=${(M)POSTDISPLAY##[[:space:]]#[^[:space:]]#}
     [[ -n $word ]] || word=$POSTDISPLAY
@@ -147,7 +149,7 @@ ghost-ai-accept-word() {
     _ZGA_LAST_BUFFER=$BUFFER   # the rest stays on screen, no new request
     _zga_show
   else
-    _zga_fallback .forward-word
+    _zga_fallback forward-word
   fi
 }
 
@@ -178,7 +180,14 @@ ghost-ai-toggle() {
 # --- hooks -----------------------------------------------------------------
 
 _zga_line_init() {
-  [[ -z $_ZGA_MODE ]] && _zga_resolve_mode
+  if [[ -z $_ZGA_MODE ]]; then
+    _zga_resolve_mode
+    # Run our redraw hook after any added since we loaded:
+    # zsh-syntax-highlighting 0.7 rebuilds region_highlight in its own hook
+    # and would wipe the dim highlight if it ran after us.
+    add-zle-hook-widget -d line-pre-redraw _zga_pre_redraw
+    add-zle-hook-widget line-pre-redraw _zga_pre_redraw
+  fi
   _ZGA_LAST_BUFFER=$BUFFER
   _ZGA_QUIET_FOR=""
   _ZGA_SUGGESTION=""

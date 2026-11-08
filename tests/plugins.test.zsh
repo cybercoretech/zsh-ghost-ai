@@ -30,7 +30,9 @@ else
   t_type $'\C-u'
   t_type 'ls'
   t_dump
-  t_eq "$(grep -c '^ls$' $T_DIR/calls.log 2>/dev/null || print 0)" "0" "min-chars still applies in strategy mode"
+  local n=0
+  [[ -f $T_DIR/calls.log ]] && n=$(grep -c '^ls$' $T_DIR/calls.log)
+  t_eq "$n" "0" "min-chars still applies in strategy mode"
   t_stop
 
   t_case "history first"
@@ -86,3 +88,19 @@ else
   [[ $D_HL != *"fg=8"* ]] && t_ok "no stale dim highlight after accepting" || t_fail "stale highlight: ${(qqq)D_HL}"
   t_stop
 fi
+
+# A stand-in for zsh-syntax-highlighting 0.7 (Ubuntu's version), which
+# rebuilds region_highlight from scratch in its own redraw hook, loaded after
+# zsh-ghost-ai. Runs everywhere, no external code.
+t_case "highlight rebuilt by a later hook"
+t_start "zstyle ':ghost-ai:*' provider fake" "zstyle ':ghost-ai:*' debounce 0" "$fake" \
+        '_wiper() { region_highlight=("0 3 fg=green"); }' \
+        "_late() { add-zle-hook-widget line-pre-redraw _wiper; add-zsh-hook -d precmd _late; }" \
+        "autoload -Uz add-zsh-hook add-zle-hook-widget; add-zsh-hook precmd _late"
+t_type 'git che'
+t_wait_post "ckout main" 3
+t_dump    # one more full redraw, so the other hook has had its turn
+[[ $D_HL == *"7 17 fg=8"* ]] && t_ok "the ghost text stays dimmed" || t_fail "dim highlight lost: ${(qqq)D_HL}"
+[[ $D_HL == *"0 3 fg=green"* ]] && t_ok "the other plugin's highlight is kept" || t_fail "other highlight lost: ${(qqq)D_HL}"
+t_stop
+
