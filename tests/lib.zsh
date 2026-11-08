@@ -25,7 +25,28 @@ t_start() {
   } > $T_DIR/.zshrc
   T_SEQ=0
   zpty -b t "env -u ZDOTDIR TERM=xterm-256color ZDOTDIR=${(q)T_DIR} HOME=${(q)T_DIR} zsh -i"
-  t_settle 0.4
+  t_ready
+}
+
+# Wait until the line editor is up: keys typed before that are lost. The dump
+# widget only answers once ZLE runs, so press it until it does (slow CI
+# machines can take a few seconds), then start from an empty line.
+t_ready() {
+  local end=$(( EPOCHREALTIME + 15 ))
+  while (( EPOCHREALTIME < end )); do
+    if t_dump 0.5 quiet; then
+      # Presses sent while waiting are queued and run now; let them finish and
+      # skip their answers, so the next dump is a fresh one.
+      t_settle 0.5
+      local line=$(<$T_DIR/dump)
+      [[ ${line%%$'\x1f'*} == <-> ]] && T_SEQ=${line%%$'\x1f'*}
+      zpty -w -n t $'\C-u'
+      t_settle 0.1
+      return 0
+    fi
+  done
+  t_fail "shell never became ready"
+  return 1
 }
 
 t_stop() {
@@ -57,10 +78,11 @@ t_type() {
 typeset -g D_BUFFER D_POST D_CURSOR
 typeset -gi T_SEQ=0
 
-# t_dump: press the dump key and load BUFFER/POSTDISPLAY/CURSOR into D_*.
+# t_dump [seconds] [quiet]: press the dump key and load BUFFER/POSTDISPLAY/
+# CURSOR into D_*.
 t_dump() {
   zpty -w -n t $'\C-x\C-t'
-  local end=$(( EPOCHREALTIME + 3 )) line
+  local end=$(( EPOCHREALTIME + ${1:-3} )) line
   while (( EPOCHREALTIME < end )); do
     t_drain
     if [[ -r $T_DIR/dump ]]; then
@@ -75,7 +97,7 @@ t_dump() {
     fi
     zselect -t 2
   done
-  t_fail "dump key got no answer (shell hung?)"
+  [[ $2 == quiet ]] || t_fail "dump key got no answer (shell hung?)"
   return 1
 }
 
