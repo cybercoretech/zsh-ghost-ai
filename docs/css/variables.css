@@ -7,7 +7,6 @@
   --bg-primary: #080B10;
   --bg-secondary: #101722;
   --bg-elevated: #17202E;
-  --bg-grid: #141C29;
 
   /* Accents */
   --accent-primary: #00F0FF;     /* electric cyan */
@@ -20,46 +19,28 @@
   --text-muted: #8493A5;
   --text-ghost: #5C7087;
 
-  /* Borders & UI */
+  /* Borders */
   --border: #1F2A3B;
-  --border-focus: #00F0FF;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
 
   /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  --radius-md: 8px;
 
   /* Typography */
-  --fs-heading: 2.75rem;
-  --fs-lead: 1.375rem;
-  --fs-body: 1rem;
+  --fs-heading: 2rem;
+  --fs-body: 0.95rem;
   --fs-code: 0.875rem;
-  --fs-terminal: 0.9375rem;
+  --fs-small: 0.8rem;
 
   /* Breakpoints */
-  --bp-xs: 480px;
   --bp-sm: 640px;
-  --bp-md: 900px;
-  --bp-lg: 1200px;
-
-  /* Footer (CyberCore pattern, adapted to Ghost AI colors) */
-  --footer-accent: var(--accent-primary);
-  --footer-highlight: var(--accent-secondary);
-  --footer-bg: var(--bg-primary);
-  --footer-text: var(--text-primary);
-  --footer-muted: var(--text-muted);
-  --footer-heading: 'Space Grotesk', sans-serif;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+/* Terminal colors -- always monospace, always crisp */
+body {
+  font-family: JetBrains Mono, ui-monospace, monospace;
+}
+
+h1, h2, h3 {
+  font-family: Space Grotesk, ui-sans-serif, sans-serif;
+  font-weight: 600;
 }
