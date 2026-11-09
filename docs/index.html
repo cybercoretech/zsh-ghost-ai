@@ -64,7 +64,7 @@
         <a href="#install">Installation</a>
         <a href="https://github.com/cybercoretech/zsh-ghost-ai" target="_blank" rel="noopener" class="nav-gh">GitHub</a>
       </div>
-      <div data-cc-theme-chooser></div>
+      <div class="theme-picker"><button id="themeButton" class="theme-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="themeMenu">NEURAL VIOLET</button><div id="themeMenu" class="theme-menu" role="listbox" aria-label="Theme" hidden></div></div>
     </div>
   </nav>
 
@@ -169,18 +169,11 @@
     </div>
   </section>
 
-  <!-- Footer (CyberCore / vdb-rs pattern) -->
-  <footer class="footer">
-    <div class="footer-inner container">
-      <div class="footer-brand">
-        <img src="assets/logos/ghost-ai-mark.svg" alt=""><span>GHOST AI<small>AI-POWERED COMMAND PREDICTION FOR ZSH</small></span>
-      </div>
-      <div class="footer-copy">INDEPENDENT EDITORIAL TOOL. NOT AFFILIATED WITH ANY LLM PROVIDER.</div>
-      <div class="network-links"><small>THE GENRE NETWORK</small><a href="https://neoncoffinvideo.site/" target="_blank" rel="noreferrer">NEON COFFIN VIDEO ↗</a><a href="https://aftercut.pages.dev/" target="_blank" rel="noreferrer">AFTER/CUT ↗</a><a href="https://lastactionreel.pages.dev/" target="_blank" rel="noreferrer">LAST ACTION REEL ↗</a></div>
-      <a href="SOURCES.md">ART & SOURCES ↗</a>
-      <span class="credits-link">Original graphics. Ghost mascot and terminal UI by Cybercore.</span>
-    </div>
-  </footer>
+  <!-- Contact band (CyberCore pattern) -->
+  <section class="contact-band"><div class="wrap"><cybercore-contact repo="zsh-ghost-ai"><a href="mailto:dev@cybercoretech.net">dev@cybercoretech.net</a></cybercore-contact></div></section>
+
+  <!-- Footer (exact CyberCore / vdb-rs pattern) -->
+  <footer><span>CYBERCORE TECH / GHOST AI / MIT OR APACHE-2.0</span><a href="https://cybercoretech.github.io/">CYBERCORE ECOSYSTEM</a></footer>
 
   <script type="module">
     import { initGhostEffect } from "./js/ghost-effect.js";
@@ -189,19 +182,13 @@
 
     window.addEventListener("DOMContentLoaded", () => {
       initGhostEffect();
-      // startInteractiveDemo is called by ghost-effect when the overlay closes
     });
   </script>
 
-  <!-- Cybercore shared theme chooser -->
-  <script src="js/theme-chooser.js"></script>
-  <script>
-    window.SITE = {
-      dataRoot: 'https://raw.githubusercontent.com/cybercoretech/cybercore/main',
-      defaultTheme: 'cybercore-tech',
-      mashups: []
-    };
-  </script>
+  <!-- Cybercore shared scripts -->
+  <script>window.SITE={dataRoot:'https://cybercoretech.github.io/data',defaultTheme:'cybercore-tech',mashups:[]};</script>
+  <script src="https://cybercoretech.github.io/kit/v1/cybercore.js"></script>
+  <script type="module" src="https://cybercoretech.github.io/kit/contact.js"></script>
 
 </body>
 </html>

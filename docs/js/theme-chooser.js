@@ -1,7 +1,6 @@
 /* ==========================================================================
    zsh-ghost-ai — CyberCore shared theme chooser (mounted in top navbar)
-   Contract: window.SITE { dataRoot, defaultTheme, mashups }.
-   Mount: <div data-cc-theme-chooser></div>
+   Mounts into legacy #themeButton / #themeMenu markup (CyberCore pattern).
    ========================================================================== */
 
 (() => {
@@ -259,8 +258,29 @@
     }
     const button = legacy ? $('.theme-button, #themeButton', host) : $('.cc-theme-button', host);
     const menu = legacy ? $('.theme-menu, #themeMenu', host) : $('.cc-theme-menu', host);
-    const filter = legacy ? $('.theme-search input, #themeFilter', host) : $('.cc-theme-search input', host);
-    const list = legacy ? $('.theme-list, #themeList', host) : $('.cc-theme-list', host);
+    let filter = legacy ? $('.theme-search input, #themeFilter', host) : $('.cc-theme-search input', host);
+    let list = legacy ? $('.theme-list, #themeList', host) : $('.cc-theme-list', host);
+
+    // In legacy mode with minimal markup (#themeButton + #themeMenu only),
+    // create filter + list elements if they don't exist.
+    if (legacy && !filter) {
+      filter = document.createElement('input');
+      filter.type = 'search';
+      filter.id = 'themeFilter';
+      filter.placeholder = 'FILTER THEMES…';
+      filter.autocomplete = 'off';
+      filter.spellcheck = false;
+      menu.insertBefore(filter, menu.firstChild);
+    }
+    if (legacy && !list) {
+      list = document.createElement('div');
+      list.id = 'themeList';
+      list.className = 'theme-list';
+      list.setAttribute('role', 'listbox');
+      list.setAttribute('aria-label', 'Theme');
+      menu.appendChild(list);
+    }
+
     if (!button || !menu || !filter || !list) {
       if (legacy) console.warn('[Cybercore chooser] Legacy #picker markup is incomplete; expected button, menu, filter, and list elements.');
       else host.innerHTML = '<p class="cc-theme-error" role="alert">Theme chooser markup is incomplete.</p>';
@@ -328,6 +348,8 @@
       const schema = await response.json();
       families = schema.families || {};
       $$('[data-cc-theme-chooser]').forEach(host => mount(host));
+      const legacy = $('#themeButton');
+      if (legacy && !legacy.dataset.ccChooserMounted) mount($('#nav'), true);
 
       const sourceCount = allNames().length;
       const totalCount = sourceCount + MASHUPS.length;
