@@ -1,49 +1,71 @@
 /* ==========================================================================
-   zsh-ghost-ai — Design tokens (CyberCore Terminal aesthetic)
+   zsh-ghost-ai — Design tokens (CyberCore Terminal aesthetic, vexlang-aligned)
    ========================================================================== */
 
 :root {
-  /* Backgrounds */
-  --bg-primary: #080B10;
-  --bg-secondary: #101722;
-  --bg-elevated: #17202E;
+  /* Backgrounds — vexlang-inspired dark panel palette */
+  --bg-primary: #080d15;
+  --bg-secondary: #0d1720;
+  --bg-elevated: #101d28;
 
-  /* Accents */
-  --accent-primary: #00F0FF;
-  --accent-secondary: #39FF14;
-  --accent-tertiary: #0088FF;
+  /* Accents — vexlang-inspired neon palette */
+  --accent-primary: #62e7ff;
+  --accent-secondary: #78ff38;
+  --accent-tertiary: #ffbf4a;
 
   /* Text */
-  --text-primary: #E5EDF5;
-  --text-secondary: #B9C4D0;
-  --text-muted: #8493A5;
-  --text-ghost: #5C7087;
+  --text-primary: #f3f6ff;
+  --text-secondary: #a2b4c3;
+  --text-muted: #718897;
+  --text-ghost: #476276;
 
   /* Borders */
-  --border: #1F2A3B;
+  --border: #1e3b4b;
 
-  /* Radius */
-  --radius-md: 8px;
+  /* Radius — vexlang uses square corners with clip-path bevels */
+  --radius-md: 0px;
+  --radius-sm: 0px;
 
   /* Typography */
   --fs-body: 0.9rem;
   --fs-code: 0.875rem;
 
   body {
-    font-family: JetBrains Mono, ui-monospace, monospace;
+    font-family: 'Space Grotesk', ui-sans-serif, sans-serif;
     font-size: var(--fs-body);
     color: var(--text-primary);
-    background: var(--bg-primary);
+    background:
+      radial-gradient(circle at 75% 20%, color-mix(in srgb, var(--accent-primary) 8%, transparent), 30rem),
+      radial-gradient(circle at 14% 80%, color-mix(in srgb, var(--accent-secondary) 6%, transparent), 25rem),
+      var(--bg-primary);
     margin: 0;
     line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.35;
+    pointer-events: none;
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--accent-primary) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--accent-primary) 5%, transparent) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(#000, transparent 80%);
   }
 
   h1, h2, h3 {
-    font-family: Space Grotesk, ui-sans-serif, sans-serif;
+    font-family: 'Space Grotesk', ui-sans-serif, sans-serif;
     font-weight: 600;
     color: var(--text-primary);
     margin: 0;
+    letter-spacing: -0.03em;
   }
+
+  h1 { font-weight: 700; letter-spacing: -0.05em; }
 
   a {
     color: inherit;
@@ -51,15 +73,15 @@
   }
 
   code, pre {
-    font-family: JetBrains Mono, ui-monospace, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
   }
 
   kbd {
-    font-family: JetBrains Mono, ui-monospace, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 0.75rem;
     background: var(--bg-elevated);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 0;
     padding: 0.1rem 0.4rem;
     color: var(--accent-primary);
   }
