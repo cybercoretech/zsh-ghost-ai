@@ -1,31 +1,29 @@
 /* ==========================================================================
    zsh-ghost-ai — CyberCore theme chooser (navbar)
-   Small, unobtrusive button in the navbar.
+   Small theme button matching vdb-rs pattern.
    ========================================================================== */
 
-.cc-theme-picker {
-  position: relative;
-  z-index: 50;
-  color: var(--text-primary);
-  font: 600 0.7rem/1.2 JetBrains Mono, ui-monospace, monospace;
+.theme-picker {
+  margin-left: 1rem;
 }
 
-.cc-theme-picker .theme-button {
-  display: flex;
+.theme-button {
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   min-width: 8rem;
   max-width: 100%;
   padding: 0.4rem 0.7rem;
-  color: inherit;
+  color: var(--text-primary);
   background: var(--bg-elevated);
   border: 1px solid var(--accent-primary);
   cursor: pointer;
-  font: inherit;
+  font-family: JetBrains Mono, ui-monospace, monospace;
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
 }
 
-.cc-theme-picker .theme-button .theme-swatch {
+.theme-button .theme-swatch {
   width: 0.7rem;
   height: 0.7rem;
   flex: none;
@@ -33,11 +31,11 @@
   box-shadow: 0 0 8px var(--accent-primary);
 }
 
-.cc-theme-picker .theme-button[aria-expanded="true"] {
+.theme-button[aria-expanded="true"] {
   background: color-mix(in srgb, var(--accent-primary) 14%, var(--bg-elevated));
 }
 
-.cc-theme-picker .theme-menu {
+.theme-menu {
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
@@ -49,14 +47,14 @@
   backdrop-filter: blur(16px);
 }
 
-.cc-theme-picker .theme-menu[hidden] { display: none; }
+.theme-menu[hidden] { display: none; }
 
-.cc-theme-picker .theme-search {
+.theme-search {
   padding: 0.4rem;
   border-bottom: 1px solid var(--border);
 }
 
-.cc-theme-picker .theme-search input {
+.theme-search input {
   box-sizing: border-box;
   width: 100%;
   padding: 0.5rem 0.6rem;
@@ -67,14 +65,14 @@
   letter-spacing: 0.05em;
 }
 
-.cc-theme-picker .theme-list {
+.theme-list {
   max-height: min(40vh, 20rem);
   overflow: auto;
   padding: 0.2rem;
   overscroll-behavior: contain;
 }
 
-.cc-theme-picker .cc-theme-group-label {
+.cc-theme-group-label {
   position: sticky;
   top: -0.2rem;
   z-index: 1;
@@ -88,7 +86,7 @@
   letter-spacing: 0.12em;
 }
 
-.cc-theme-picker .theme-option {
+.theme-option {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -103,24 +101,19 @@
   letter-spacing: 0.04em;
 }
 
-.cc-theme-picker .theme-option[hidden] { display: none; }
+.theme-option[hidden] { display: none; }
 
-.cc-theme-picker .theme-option:hover,
-.cc-theme-picker .theme-option:focus-visible,
-.cc-theme-picker .theme-option[aria-selected="true"] {
+.theme-option:hover,
+.theme-option:focus-visible,
+.theme-option[aria-selected="true"] {
   color: var(--accent-primary);
   background: color-mix(in srgb, var(--accent-primary) 14%, var(--bg-elevated));
 }
 
-.cc-theme-picker .theme-dots { display: flex; gap: 2px; margin-left: auto; }
-.cc-theme-picker .theme-dots i { width: 0.4rem; height: 0.4rem; border-radius: 50%; }
+.theme-dots { display: flex; gap: 2px; margin-left: auto; }
+.theme-dots i { width: 0.4rem; height: 0.4rem; border-radius: 50%; }
 
 @media (max-width: 700px) {
-  .cc-theme-picker .theme-button { min-width: 0; max-width: 9rem; font-size: 0.65rem; padding: 0.4rem 0.6rem; }
-  .cc-theme-picker .theme-menu { position: fixed; top: 3rem; left: 1rem; right: 1rem; width: auto; }
-}
-
-/* Integrate into nav */
-.nav .theme-picker {
-  margin-left: 1rem;
+  .theme-button { min-width: 0; max-width: 9rem; font-size: 0.65rem; padding: 0.4rem 0.6rem; }
+  .theme-menu { position: fixed; top: 3rem; left: 1rem; right: 1rem; width: auto; }
 }

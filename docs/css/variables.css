@@ -28,9 +28,7 @@
   /* Typography */
   --fs-body: 0.9rem;
   --fs-code: 0.875rem;
-  --fs-small: 0.8rem;
 
-  /* Terminal typesetting */
   body {
     font-family: JetBrains Mono, ui-monospace, monospace;
     font-size: var(--fs-body);
@@ -74,5 +72,10 @@
     margin: 0;
     padding: 0;
     cursor: pointer;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
   }
 }

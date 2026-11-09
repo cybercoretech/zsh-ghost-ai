@@ -15,10 +15,6 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: JetBrains Mono, ui-monospace, monospace;
-  font-size: var(--fs-body);
   overflow-x: hidden;
 }
 
