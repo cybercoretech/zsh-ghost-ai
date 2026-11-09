@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080B10">
   <title>GHOST AI — AI-powered command prediction for Zsh</title>
   <meta name="description" content="AI-powered command prediction for Zsh. Type naturally. Watch your next command appear. Press → to accept. Never interrupts your workflow.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +14,7 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/theme-chooser.css">
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="apple-touch-icon" type="image/svg+xml" href="assets/icons/apple-touch-icon.svg">
   <meta name="color-scheme" content="dark">
@@ -52,9 +54,9 @@
     </div>
   </noscript>
 
-  <!-- Navigation -->
+  <!-- Navigation (CyberCore theme chooser pattern) -->
   <nav class="nav" id="nav">
-    <div class="nav-inner">
+    <div class="nav-inner container">
       <a href="#" class="nav-logo" aria-label="GHOST AI home">GH<span style="color:#00f0ff">OST</span> AI</a>
       <div class="nav-links">
         <a href="#features">Features</a>
@@ -62,7 +64,7 @@
         <a href="#install">Installation</a>
         <a href="https://github.com/cybercoretech/zsh-ghost-ai" target="_blank" rel="noopener" class="nav-gh">GitHub</a>
       </div>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"></button>
+      <div data-cc-theme-chooser></div>
     </div>
   </nav>
 
@@ -167,12 +169,17 @@
     </div>
   </section>
 
+  <!-- Footer (CyberCore / vdb-rs pattern) -->
   <footer class="footer">
-    <a class="footer-brand" href="#top"><img src="assets/logos/ghost-ai-mark.svg" alt=""><span>GHOST AI<small>AI-POWERED COMMAND PREDICTION FOR ZSH</small></span></a>
-    <p>INDEPENDENT EDITORIAL TOOL. NOT AFFILIATED WITH ANY LLM PROVIDER.</p>
-    <div class="network-links"><small>THE GENRE NETWORK</small><a href="https://neoncoffinvideo.site/" target="_blank" rel="noreferrer">NEON COFFIN VIDEO ↗</a><a href="https://aftercut.pages.dev/" target="_blank" rel="noreferrer">AFTER/CUT ↗</a><a href="https://lastactionreel.pages.dev/" target="_blank" rel="noreferrer">LAST ACTION REEL ↗</a></div>
-    <a href="SOURCES.md">ART & SOURCES ↗</a>
-    <span class="credits-link">Original graphics. Ghost mascot and terminal UI by Cybercore.</span>
+    <div class="footer-inner container">
+      <div class="footer-brand">
+        <img src="assets/logos/ghost-ai-mark.svg" alt=""><span>GHOST AI<small>AI-POWERED COMMAND PREDICTION FOR ZSH</small></span>
+      </div>
+      <div class="footer-copy">INDEPENDENT EDITORIAL TOOL. NOT AFFILIATED WITH ANY LLM PROVIDER.</div>
+      <div class="network-links"><small>THE GENRE NETWORK</small><a href="https://neoncoffinvideo.site/" target="_blank" rel="noreferrer">NEON COFFIN VIDEO ↗</a><a href="https://aftercut.pages.dev/" target="_blank" rel="noreferrer">AFTER/CUT ↗</a><a href="https://lastactionreel.pages.dev/" target="_blank" rel="noreferrer">LAST ACTION REEL ↗</a></div>
+      <a href="SOURCES.md">ART & SOURCES ↗</a>
+      <span class="credits-link">Original graphics. Ghost mascot and terminal UI by Cybercore.</span>
+    </div>
   </footer>
 
   <script type="module">
@@ -185,5 +192,16 @@
       // startInteractiveDemo is called by ghost-effect when the overlay closes
     });
   </script>
+
+  <!-- Cybercore shared theme chooser -->
+  <script src="js/theme-chooser.js"></script>
+  <script>
+    window.SITE = {
+      dataRoot: 'https://raw.githubusercontent.com/cybercoretech/cybercore/main',
+      defaultTheme: 'cybercore-tech',
+      mashups: []
+    };
+  </script>
+
 </body>
 </html>
