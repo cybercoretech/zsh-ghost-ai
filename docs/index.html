@@ -110,18 +110,46 @@
 
     <!-- Hero (diagprint pattern: sigil, glitch h1, lede, CTA, HUD terminal) -->
     <section class="hero" id="hero">
-      <div class="sigil-hero" aria-hidden="true">
-        <svg><use href="#ga-sigil"/></svg>
-        <span class="sigil-ping"></span>
+      <div class="shell">
+        <div class="sigil-hero" aria-hidden="true">
+          <svg><use href="#ga-sigil"/></svg>
+          <span class="sigil-ping"></span>
+        </div>
+        <p class="eyebrow"><i class="blink"></i>GHOST AI // ZSH PREDICTION <b>//</b> <span id="eyebrowVer">v0.1.0</span></p>
+        <h1>Make every failure <em data-text="legible.">predictable.</em></h1>
+        <p class="lede"><b>Ghost AI</b> predicts your next command inline as you type. Accept with &rarr;, dismiss with Esc. Nothing runs unless you say so.</p>
+        <div class="actions">
+          <a class="button hot" href="#install"><svg><use href="#i-zap"/></svg>Install now <span>↗</span></a>
+          <a class="button" href="https://github.com/cybercoretech/zsh-ghost-ai" target="_blank"><svg><use href="#i-node"/></svg>View on GitHub <span>→</span></a>
+        </div>
+        <div class="release"><i></i> Ollama · OpenAI Compatible · Claude</div>
       </div>
-      <p class="eyebrow"><i class="blink"></i>GHOST AI // ZSH PREDICTION <b>//</b> <span id="eyebrowVer">v0.1.0</span></p>
-      <h1>Make every failure <em data-text="legible.">predictable.</em></h1>
-      <p class="lede"><b>Ghost AI</b> predicts your next command inline as you type. Accept with <span class="blink"></span> &rarr;, dismiss with <span class="blink"></span> Esc. Nothing runs unless you say so.</p>
-      <div class="actions">
-        <a class="button hot" href="#install"><svg><use href="#i-zap"/></svg>Install now <span>↗</span></a>
-        <a class="button" href="https://github.com/cybercoretech/zsh-ghost-ai" target="_blank"><svg><use href="#i-node"/></svg>View on GitHub <span>→</span></a>
+      <div class="shell">
+        <div class="terminal-card">
+          <div class="hud-corners">
+            <i class="hud-c tl"></i><i class="hud-c tr"></i><i class="hud-c bl"></i><i class="hud-c br"></i>
+          </div>
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="terminal-title">zsh · ghost-ai</span>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <div class="line line-cursor" id="line-cursor">
+              <span class="prompt">&gt; </span><span class="typed" id="typed"></span><span class="cursor blink" id="cursor">▋</span>
+            </div>
+            <div class="line line-ghost hidden" id="line-ghost">
+              <span class="prompt">&gt; </span><span class="typed-ghost" id="typed-ghost"></span><span class="ghost-caret">▋</span>
+            </div>
+            <div class="line line-hint hidden" id="line-hint">
+              <span class="hint-text">Press &rarr; to accept &nbsp;·&nbsp; Esc to dismiss</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="release"><i></i> Ollama · OpenAI Compatible · Claude</div>
     </section>
 
     <!-- Features (diagprint surface cards) -->
