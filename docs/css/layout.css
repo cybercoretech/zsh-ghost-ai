@@ -406,41 +406,40 @@ section {
   color: var(--text-primary);
 }
 
-/* ---------- Contact band ---------- */
+/* ---------- Contact band (vdb-rs pattern) ---------- */
 .contact-band {
-  padding: 1.5rem 1rem;
-  background: var(--bg-secondary);
+  position: relative;
+  z-index: 1;
+  padding: 3rem 0 2.5rem;
   border-top: 1px solid var(--border);
 }
-
-.contact-band .wrap {
-  max-width: 900px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
+.contact-band a {
+  color: var(--accent-primary);
 }
 
-/* ---------- Footer (exact CyberCore / vdb-rs pattern) ---------- */
+/* ---------- Footer (vdb-rs pattern) ---------- */
 footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
   border-top: 1px solid var(--border);
-  background: var(--bg-secondary);
-  padding: 2rem 1rem;
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-family: JetBrains Mono, ui-monospace, monospace;
-  text-align: center;
+  color: var(--text-muted);
+  font: 0.7rem/1.6 JetBrains Mono, ui-monospace, monospace;
+  letter-spacing: 0.16em;
+  text-align: left;
 }
-
 footer span {
   color: var(--text-secondary);
 }
-
 footer a {
   color: var(--text-primary);
   text-decoration: none;
   font-weight: 600;
 }
-
 footer a:hover {
   color: var(--accent-primary);
 }
