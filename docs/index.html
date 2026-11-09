@@ -154,23 +154,102 @@
           <div class="card-index">[01] LOCAL AI FIRST</div>
           <svg class="card-icon reveal-delay"><use href="#i-ghost"/></svg>
           <h3>Ollama-powered</h3>
-          <p>Local predictions without requiring a cloud AI service.</p>
+          <p>Local predictions without requiring a cloud AI service. Your commands never leave your machine.</p>
           <code>Ollama</code>
         </article>
         <article class="card reveal reveal-delay">
           <div class="card-index">[02] MULTIPLE PROVIDERS</div>
           <svg class="card-icon reveal-delay"><use href="#i-node"/></svg>
           <h3>OpenAI-compatible &amp; Claude</h3>
-          <p>Connect to any OpenAI-compatible endpoint or Anthropic Claude.</p>
+          <p>Connect to any OpenAI-compatible endpoint or Anthropic Claude. Swap providers in your zshrc.</p>
           <code>OpenAI · Claude</code>
         </article>
         <article class="card reveal">
           <div class="card-index">[03] YOU STAY IN CONTROL</div>
           <svg class="card-icon reveal-delay"><use href="#i-shield"/></svg>
           <h3>Never auto-executes</h3>
-          <p>Suggestions never run without your explicit acceptance.</p>
+          <p>Suggestions appear in gray and run only when you press &rarr;. Dismiss with Esc.</p>
           <code>&rarr; to accept</code>
         </article>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="shell section" id="how-it-works">
+      <div class="section-kicker">// prediction flow</div>
+      <h2>Type naturally.<br><em>Ghost AI fills in the rest.</em></h2>
+      <p class="intro">As you type, Ghost AI predicts your next command and shows it inline. Accept with &rarr;, dismiss with Esc. Nothing runs unless you say so.</p>
+      <div class="steps">
+        <article class="step reveal">
+          <div class="step-number">01</div>
+          <h3>Type a command</h3>
+          <p>Start typing in your terminal as usual. Ghost AI watches your input without interrupting your flow.</p>
+          <code>git commit -m</code>
+        </article>
+        <article class="step reveal reveal-delay">
+          <div class="step-number">02</div>
+          <h3>Ghost predicts</h3>
+          <p>Based on your history and context, Ghost AI suggests the likely completion in gray.</p>
+          <code>git commit -m "fix: ..."</code>
+        </article>
+        <article class="step reveal">
+          <div class="step-number">03</div>
+          <h3>Accept or dismiss</h3>
+          <p>Press &rarr; to accept the suggestion, or keep typing / Esc to dismiss. You're always in control.</p>
+          <code>&rarr; accept · Esc dismiss</code>
+        </article>
+      </div>
+    </section>
+
+    <!-- Providers -->
+    <section class="shell section" id="providers">
+      <div class="section-kicker">// providers</div>
+      <h2>Works with<br><em>your AI stack.</em></h2>
+      <p class="intro">Ghost AI isn't locked to one provider. Run it locally with Ollama, or point it at any OpenAI-compatible endpoint or Anthropic Claude.</p>
+      <div class="providers">
+        <article class="provider reveal">
+          <div class="provider-dot"></div>
+          <h3>Ollama</h3>
+          <p>Local, private, no cloud required. Runs on your machine with models you choose.</p>
+          <code>ollama</code>
+        </article>
+        <article class="provider reveal reveal-delay">
+          <div class="provider-dot"></div>
+          <h3>OpenAI Compatible</h3>
+          <p>Any endpoint speaking the OpenAI API format — self-hosted proxies, local servers, and more.</p>
+          <code>openai-compat</code>
+        </article>
+        <article class="provider reveal">
+          <div class="provider-dot"></div>
+          <h3>Claude</h3>
+          <p>Anthropic Claude for advanced reasoning and complex command prediction.</p>
+          <code>claude</code>
+        </article>
+      </div>
+    </section>
+
+    <!-- Prediction preview -->
+    <section class="shell section" id="preview">
+      <div class="section-kicker">// in action</div>
+      <h2>Before and after<br><em>Ghost AI.</em></h2>
+      <p class="intro">The same workflow, with inline suggestions that stay out of your way until you need them.</p>
+      <div class="preview">
+        <div class="preview-card reveal">
+          <span class="preview-tag">without ghost ai</span>
+          <div class="preview-label dim">standard zsh</div>
+          <div class="preview-terminal">
+            <div class="preview-line"><span class="preview-prompt">&gt; </span><span class="preview-typed">git commit -m </span><span class="cursor blink">▋</span></div>
+            <div class="preview-hint">You type everything manually.</div>
+          </div>
+        </div>
+        <div class="preview-card reveal reveal-delay">
+          <span class="preview-tag primary">with ghost ai</span>
+          <div class="preview-label primary">inline suggestion</div>
+          <div class="preview-terminal">
+            <div class="preview-line"><span class="preview-prompt">&gt; </span><span class="preview-typed">git commit -m </span><span class="preview-ghost">"fix: resolve login race"</span></div>
+            <div class="preview-hint">Press &rarr; to accept · Esc to dismiss</div>
+          </div>
+        </div>
       </div>
     </section>
 
