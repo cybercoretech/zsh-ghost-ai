@@ -1,0 +1,253 @@
+/* ==========================================================================
+   zsh-ghost-ai — Layout (nav, sections, grids)
+   ========================================================================== */
+
+/* ---------- Navigation ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg-primary) 85%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.nav-logo .accent {
+  color: var(--accent-primary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.75rem;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: var(--accent-primary);
+}
+
+.nav-toggle {
+  display: none;
+  width: 2rem;
+  height: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
+  border: none;
+  background: transparent;
+}
+
+.nav-toggle .bar {
+  width: 1.5rem;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* ---------- Section scaffolding ---------- */
+section {
+  scroll-margin-top: 5rem;
+}
+
+.section-head {
+  margin-bottom: 3rem;
+  max-width: 700px;
+}
+
+.section-head h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.section-head p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ---------- Grid utilities ---------- */
+.feature-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .feature-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---------- Footer (cybercore GH Pages pattern) ---------- */
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-secondary);
+  padding: 3rem 1rem 2rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.footer-brand img {
+  width: 32px;
+  height: 32px;
+}
+
+.footer-brand span {
+  display: block;
+}
+
+.footer-brand small {
+  font-family: JetBrains Mono, monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-top: 0.125rem;
+}
+
+.footer p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+.network-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.network-links small {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-family: JetBrains Mono, monospace;
+  letter-spacing: 0.5px;
+}
+
+.network-links a {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.network-links a:hover {
+  color: var(--accent-primary);
+}
+
+.footer a[href="SOURCES.md"],
+.footer .credits-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-family: JetBrains Mono, monospace;
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease;
+}
+
+.footer a[href="SOURCES.md"]:hover,
+.footer .credits-link:hover {
+  color: var(--accent-primary);
+}
+
+/* ---------- Mobile nav ---------- */
+@media (max-width: 639px) {
+  .nav-links {
+    position: fixed;
+    top: 4rem;
+    right: 0;
+    left: 0;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    gap: 0;
+    transform: translateY(-120%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+@media (min-width: 640px) {
+  .nav-toggle {
+    display: none;
+  }
+}
