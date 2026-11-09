@@ -1,14 +1,137 @@
 /* ==========================================================================
-   zsh-ghost-ai — CyberCore theme chooser (navbar, vexlang-sized)
+   zsh-ghost-ai — CyberCore theme chooser (navbar)
+   Small theme button matching vdb-rs pattern.
    ========================================================================== */
 
-/* The <cybercore-theme-chooser adopt> element in index.html carries its own
-   shadow-DOM styles from kit/chooser.css. The --ccx-* tokens below (also set
-   in layout.css) size it to match vexlang's theme trigger button. The legacy
-   .theme-button / .theme-menu classes are no longer rendered — cybercore.js
-   replaces .theme-picker with the custom element. */
-
-/* Retain .theme-picker margin for any fallback layout. */
 .theme-picker {
   margin-left: 1rem;
+}
+
+/* vdb-rs-sized theme chooser: override the --ccx-* tokens the custom
+   element reads. cybercore.js adopts #themeButton's computed style, but its
+   font is under 12px so --ccx-size is never copied; set it explicitly here. */
+cybercore-theme-chooser {
+  --ccx-size: 0.68rem;
+  --ccx-tracking: 0.12em;
+  --ccx-weight: 500;
+  --ccx-button-width: calc(10.5rem);
+  --ccx-height: calc(1.9rem);
+  --ccx-button-bg: var(--bg-elevated);
+  --ccx-button-border: var(--accent-primary);
+  --ccx-button-fg: var(--text-primary);
+}
+
+.theme-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  max-width: 10.5rem;
+  padding: 0.35rem 0.6rem;
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--accent-primary);
+  cursor: pointer;
+  font-family: JetBrains Mono, ui-monospace, monospace;
+  font-size: 0.69rem;
+  letter-spacing: 0.12em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.theme-button .theme-swatch {
+  width: 0.7rem;
+  height: 0.7rem;
+  flex: none;
+  background: conic-gradient(var(--accent-secondary) 0 25%, var(--accent-primary) 0 50%, var(--accent-tertiary) 0 75%, var(--accent-primary) 0);
+  box-shadow: 0 0 8px var(--accent-primary);
+}
+
+.theme-button[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--accent-primary) 14%, var(--bg-elevated));
+}
+
+.theme-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: min(17rem, calc(100vw - 2rem));
+  max-height: 65vh;
+  z-index: 100;
+  background: color-mix(in srgb, var(--bg-elevated) 96%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: 0 1rem 3rem #0009;
+  backdrop-filter: blur(16px);
+}
+
+.theme-menu[hidden] { display: none; }
+
+.theme-search {
+  padding: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.theme-search input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  font: inherit;
+  letter-spacing: 0.05em;
+}
+
+.theme-list {
+  max-height: min(40vh, 20rem);
+  overflow: auto;
+  padding: 0.2rem;
+  overscroll-behavior: contain;
+}
+
+.cc-theme-group-label {
+  position: sticky;
+  top: -0.2rem;
+  z-index: 1;
+  margin: 0.25rem 0 0.1rem;
+  padding: 0.3rem 0.35rem;
+  color: var(--accent-primary);
+  background: var(--bg-elevated);
+  border-left: 2px solid var(--accent-primary);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-primary) 35%, transparent);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.4rem 0.45rem;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: 0.04em;
+}
+
+.theme-option[hidden] { display: none; }
+
+.theme-option:hover,
+.theme-option:focus-visible,
+.theme-option[aria-selected="true"] {
+  color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 14%, var(--bg-elevated));
+}
+
+.theme-dots { display: flex; gap: 2px; margin-left: auto; }
+.theme-dots i { width: 0.4rem; height: 0.4rem; border-radius: 50%; }
+
+@media (max-width: 700px) {
+  .theme-button { min-width: 0; max-width: 9rem; font-size: 0.65rem; padding: 0.4rem 0.6rem; }
+  .theme-menu { position: fixed; top: 3rem; left: 1rem; right: 1rem; width: auto; }
 }
