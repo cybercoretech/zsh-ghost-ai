@@ -787,7 +787,8 @@ h2 em {
   isolation: isolate;
   clip-path: var(--bevel);
   max-width: 700px;
-  margin: 0 auto;
+  margin: 2rem auto 0;
+  border-radius: 0;
 }
 .install-card::before {
   content: "";
@@ -809,7 +810,7 @@ h2 em {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.75rem;
   width: calc(100% - 1.4rem);
   margin: 0 0.7rem;
   padding: 1rem 1rem;
@@ -817,49 +818,46 @@ h2 em {
   text-align: left;
   font: inherit;
   color: var(--white);
-  background: color-mix(in srgb, var(--bg) 85%, #000);
-  border: 1px solid color-mix(in srgb, var(--acid) 35%, var(--line));
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.15s;
+  background: color-mix(in srgb, var(--bg) 90%, #000);
+  border: 1px solid color-mix(in srgb, var(--acid) 25%, var(--line));
+  border-radius: 0;
+  transition: border-color 0.2s;
 }
 .install-code:hover {
   border-color: var(--acid);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--acid) 15%, transparent), 0 0 30px color-mix(in srgb, var(--acid) 25%, transparent);
 }
 .code-dollar {
   flex: none;
-  font: 700 1.2rem/1 var(--mono);
+  font: 700 1.1rem/1 var(--mono);
   color: var(--pink);
-  text-shadow: 0 0 10px var(--pink);
-  animation: blink 1.2s steps(2) infinite;
 }
 .code-text {
   flex: 1;
   min-width: 0;
-  font-size: 0.86rem;
-  line-height: 1.45;
+  font-size: 0.82rem;
+  line-height: 1.4;
   color: var(--cyan);
   white-space: nowrap;
   overflow-x: auto;
-  text-shadow: 0 0 12px color-mix(in srgb, var(--cyan) 35%, transparent);
 }
 .btn-copy {
   flex: none;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.65rem 0.85rem;
-  font: 0.8rem/1 var(--hud);
-  letter-spacing: 0.16em;
+  gap: 0.4rem;
+  padding: 0.55rem 0.75rem;
+  font: 0.7rem/1 var(--hud);
+  letter-spacing: 0.12em;
   color: var(--bg);
   background: var(--acid);
   clip-path: var(--bevel-sm);
-  box-shadow: 0 0 18px var(--acid);
   cursor: pointer;
   border: 0;
+  white-space: nowrap;
 }
 .btn-copy:hover {
   background: var(--white);
-  box-shadow: 0 0 26px var(--white);
+  box-shadow: 0 0 14px var(--white);
 }
 .install-steps {
   list-style: none;
@@ -871,22 +869,22 @@ h2 em {
   counter-increment: step;
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
   color: var(--text-secondary);
-  font-size: 0.875rem;
-  line-height: 1.6;
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 .install-steps li::before {
   content: counter(step);
   flex-shrink: 0;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
   border-radius: 0;
   background: var(--acid);
   color: var(--bg);
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 700;
   display: flex;
   align-items: center;
