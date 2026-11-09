@@ -29,7 +29,7 @@ t_eq "$(_count_blocks $home)" "1" "one block in .zshrc"
 t_eq "$(head -n1 $home/.zshrc)" "export EDITOR=nvim  # my setting" "existing .zshrc content kept"
 grep -q "source \"$home/.local/share/zsh-ghost-ai/zsh-ghost-ai.plugin.zsh\"" $home/.zshrc && t_ok "block sources the plugin" || t_fail "no source line"
 local v=$(env -i HOME=$home PATH=$PATH TERM=dumb zsh -ic 'ghost-ai version' 2>/dev/null </dev/null)
-t_eq "$v" "zsh-ghost-ai 0.1.0-dev" "a new interactive shell loads it"
+t_eq "$v" "zsh-ghost-ai 0.1.0" "a new interactive shell loads it"
 
 t_case "rerun"
 _inst $home --provider anthropic

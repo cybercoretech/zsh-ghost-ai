@@ -8,7 +8,7 @@
 0="${${(M)0:#/*}:-$PWD/$0}"
 
 typeset -g ZGA_ROOT="${0:A:h}"
-typeset -g ZGA_VERSION="0.1.0-dev"
+typeset -g ZGA_VERSION="0.1.0"
 
 # Only interactive shells have a line editor to draw on.
 [[ -o interactive ]] || return 0

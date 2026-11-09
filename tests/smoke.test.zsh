@@ -15,4 +15,4 @@ t_eq "$out" "loaded-quietly" "sourcing in a script is a silent no-op"
 
 t_case "cli"
 out=$(zsh -fic "source ${(q)ZGA_ROOT}/zsh-ghost-ai.plugin.zsh; ghost-ai version" 2>&1)
-t_eq "$out" "zsh-ghost-ai 0.1.0-dev" "ghost-ai version"
+t_eq "$out" "zsh-ghost-ai 0.1.0" "ghost-ai version"
