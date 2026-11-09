@@ -605,18 +605,8 @@ h2 em {
 }
 .card:hover {
   border-color: var(--c, var(--acid));
-  transform: translateY(-4px);
+  transform: translateY(-2px);
 }
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s;
-  background: radial-gradient(16rem circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--c, var(--acid)) 14%, transparent), transparent 65%);
-}
-.card:hover::after { opacity: 1; }
 .card-index {
   color: var(--acid);
   font: 600 0.68rem var(--hud);
@@ -629,7 +619,6 @@ h2 em {
   height: 30px;
   color: var(--c, var(--acid));
   margin-bottom: 1rem;
-  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--c, var(--acid)) 40%, transparent));
 }
 .card h3 {
   margin: 1rem 0 0.3rem;
@@ -885,18 +874,10 @@ h2 em {
   background: var(--acid);
   clip-path: var(--bevel-sm);
   box-shadow: 0 0 18px var(--acid);
-  animation: beg 2.4s ease-in-out infinite;
   cursor: pointer;
   border: 0;
 }
-@keyframes beg {
-  0%, 70%, 100% { transform: none; }
-  75% { transform: translateX(-2px); }
-  80% { transform: translateX(2px); }
-  85% { transform: translateX(-1px); }
-}
 .btn-copy:hover {
-  animation: none;
   background: var(--white);
   box-shadow: 0 0 26px var(--white);
 }
