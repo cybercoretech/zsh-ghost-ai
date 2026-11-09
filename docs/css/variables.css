@@ -1,14 +1,14 @@
 /* ==========================================================================
-   zsh-ghost-ai — Design tokens (CyberCore Terminal aesthetic)
+   zsh-ghost-ai — Design tokens (Ghost AI terminal aesthetic)
    ========================================================================== */
 
 :root {
-  /* Backgrounds */
+  /* Backgrounds — deep terminal dark */
   --bg-primary: #080B10;
   --bg-secondary: #101722;
   --bg-elevated: #17202E;
 
-  /* Accents */
+  /* Accents — ghost neon */
   --accent-primary: #00F0FF;
   --accent-secondary: #39FF14;
   --accent-tertiary: #0088FF;
@@ -22,28 +22,54 @@
   /* Borders */
   --border: #1F2A3B;
 
-  /* Radius */
-  --radius-md: 8px;
+  /* Radius — square corners, sharp terminal look */
+  --radius-md: 0px;
+  --radius-sm: 0px;
 
   /* Typography */
   --fs-body: 0.9rem;
   --fs-code: 0.875rem;
 
   body {
-    font-family: JetBrains Mono, ui-monospace, monospace;
+    font-family: 'Space Grotesk', ui-sans-serif, sans-serif;
     font-size: var(--fs-body);
     color: var(--text-primary);
-    background: var(--bg-primary);
+    background:
+      radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--accent-primary) 8%, transparent), 28rem),
+      radial-gradient(circle at 15% 85%, color-mix(in srgb, var(--accent-secondary) 6%, transparent), 22rem),
+      var(--bg-primary);
     margin: 0;
     line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.25;
+    pointer-events: none;
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--accent-primary) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--accent-primary) 6%, transparent) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(#000, transparent 78%);
   }
 
   h1, h2, h3 {
-    font-family: Space Grotesk, ui-sans-serif, sans-serif;
+    font-family: 'Space Grotesk', ui-sans-serif, sans-serif;
     font-weight: 600;
     color: var(--text-primary);
     margin: 0;
+    letter-spacing: -0.03em;
   }
+
+  h1 { font-weight: 700; letter-spacing: -0.06em; }
+
+  h2 { font-weight: 600; letter-spacing: -0.04em; }
+
+  h3 { font-weight: 600; letter-spacing: -0.02em; }
 
   a {
     color: inherit;
@@ -51,15 +77,15 @@
   }
 
   code, pre {
-    font-family: JetBrains Mono, ui-monospace, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
   }
 
   kbd {
-    font-family: JetBrains Mono, ui-monospace, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 0.75rem;
     background: var(--bg-elevated);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 0;
     padding: 0.1rem 0.4rem;
     color: var(--accent-primary);
   }
@@ -78,4 +104,33 @@
     max-width: 100%;
     display: block;
   }
+
+  /* Reveal-on-scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-delay { transition-delay: 0.15s; }
+
+  /* Glitch text */
+  .glitch {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .glitch::before { color: var(--accent-secondary); clip-path: inset(0 0 65% 0); transform: translate(-2px, -1px); opacity: 0.8; animation: gg-a 3.6s infinite steps(1); }
+  .glitch::after { color: var(--accent-primary); clip-path: inset(62% 0 0 0); transform: translate(2px, 1px); opacity: 0.8; animation: gg-b 2.9s infinite reverse steps(1); }
+  @keyframes gg-a { 0%, 92%, 100% { transform: none; } 93% { transform: translate(-4px, 1px); } 95% { transform: translate(3px, -2px); } 97% { transform: translate(-1px, 2px); } }
+  @keyframes gg-b { 0%, 92%, 100% { transform: none; } 93% { transform: translate(4px, -1px); } 95% { transform: translate(-3px, 2px); } 97% { transform: translate(1px, -2px); } }
 }
