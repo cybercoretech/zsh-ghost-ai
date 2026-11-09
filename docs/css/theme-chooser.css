@@ -7,6 +7,20 @@
   margin-left: 1rem;
 }
 
+/* vdb-rs-sized theme chooser: override the --ccx-* tokens the custom
+   element reads. cybercore.js adopts #themeButton's computed style, but its
+   font is under 12px so --ccx-size is never copied; set it explicitly here. */
+cybercore-theme-chooser {
+  --ccx-size: 0.68rem;
+  --ccx-tracking: 0.12em;
+  --ccx-weight: 500;
+  --ccx-button-width: calc(10.5rem);
+  --ccx-height: calc(1.9rem);
+  --ccx-button-bg: var(--bg-elevated);
+  --ccx-button-border: var(--accent-primary);
+  --ccx-button-fg: var(--text-primary);
+}
+
 .theme-button {
   display: inline-flex;
   align-items: center;
