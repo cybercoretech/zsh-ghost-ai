@@ -1,18 +1,13 @@
 /* ==========================================================================
-   zsh-ghost-ai — Layout (CyberCore GH Pages pattern)
+   zsh-ghost-ai — Layout (minimal, matches cybercore GH Pages)
    ========================================================================== */
 
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 .container {
-  width: min(1000px, 92%);
+  width: min(900px, 92%);
   margin: auto;
 }
 
+/* ---------- Navigation ---------- */
 nav {
   position: sticky;
   top: 0;
@@ -25,7 +20,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 3.25rem;
+  height: 3rem;
   padding: 0 1rem;
 }
 
@@ -53,8 +48,8 @@ nav {
 .nav-links a {
   font-size: 0.8rem;
   color: var(--text-secondary);
-  text-decoration: none;
   font-family: JetBrains Mono, ui-monospace, monospace;
+  text-decoration: none;
 }
 
 .nav-links a:hover {
@@ -62,7 +57,7 @@ nav {
 }
 
 .theme-picker {
-  margin-left: 1.5rem;
+  margin-left: 1rem;
 }
 
 /* ---------- Sections ---------- */
@@ -145,6 +140,7 @@ section {
   color: var(--text-secondary);
   margin: 0 0 1.5rem;
   line-height: 1.6;
+  max-width: 480px;
 }
 
 .hero-cta {
@@ -181,7 +177,6 @@ section {
   background: var(--accent-secondary);
 }
 
-/* ---------- Terminal demo ---------- */
 .hero-demo-wrap {
   position: relative;
 }
@@ -191,7 +186,6 @@ section {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
 .terminal-header {
@@ -313,12 +307,6 @@ section {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent-primary);
 }
 
 .feature-icon {
@@ -432,7 +420,7 @@ section {
   justify-content: center;
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer (exact CyberCore / vdb-rs pattern) ---------- */
 footer {
   border-top: 1px solid var(--border);
   background: var(--bg-secondary);

@@ -17,7 +17,7 @@ body {
   padding: 0;
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: JetBrains Mono, ui-monospace, monospace;
   font-size: var(--fs-body);
   overflow-x: hidden;
 }
@@ -63,6 +63,6 @@ img {
 }
 
 .container {
-  width: min(1200px, 92%);
+  width: min(900px, 92%);
   margin: auto;
 }

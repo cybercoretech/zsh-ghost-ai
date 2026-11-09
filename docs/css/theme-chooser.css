@@ -1,6 +1,6 @@
 /* ==========================================================================
    zsh-ghost-ai — CyberCore theme chooser (navbar)
-   Small, unobtrusive, matches cybercore GH Pages pattern.
+   Small, unobtrusive button in the navbar.
    ========================================================================== */
 
 .cc-theme-picker {
@@ -14,8 +14,9 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  min-width: 10rem;
-  padding: 0.5rem 0.8rem;
+  min-width: 8rem;
+  max-width: 100%;
+  padding: 0.4rem 0.7rem;
   color: inherit;
   background: var(--bg-elevated);
   border: 1px solid var(--accent-primary);
@@ -40,7 +41,7 @@
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
-  width: min(18rem, calc(100vw - 2rem));
+  width: min(16rem, calc(100vw - 2rem));
   z-index: 100;
   background: color-mix(in srgb, var(--bg-elevated) 96%, transparent);
   border: 1px solid var(--border);
@@ -67,7 +68,7 @@
 }
 
 .cc-theme-picker .theme-list {
-  max-height: min(50vh, 24rem);
+  max-height: min(40vh, 20rem);
   overflow: auto;
   padding: 0.2rem;
   overscroll-behavior: contain;
@@ -78,7 +79,7 @@
   top: -0.2rem;
   z-index: 1;
   margin: 0.25rem 0 0.1rem;
-  padding: 0.35rem 0.4rem;
+  padding: 0.3rem 0.35rem;
   color: var(--accent-primary);
   background: var(--bg-elevated);
   border-left: 2px solid var(--accent-primary);
@@ -115,8 +116,8 @@
 .cc-theme-picker .theme-dots i { width: 0.4rem; height: 0.4rem; border-radius: 50%; }
 
 @media (max-width: 700px) {
-  .cc-theme-picker .theme-button { min-width: 0; max-width: 11rem; font-size: 0.65rem; padding: 0.4rem 0.6rem; }
-  .cc-theme-picker .theme-menu { position: fixed; top: 3.5rem; left: 1rem; right: 1rem; width: auto; }
+  .cc-theme-picker .theme-button { min-width: 0; max-width: 9rem; font-size: 0.65rem; padding: 0.4rem 0.6rem; }
+  .cc-theme-picker .theme-menu { position: fixed; top: 3rem; left: 1rem; right: 1rem; width: auto; }
 }
 
 /* Integrate into nav */
