@@ -913,31 +913,42 @@ footer {
   background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--acid) 4%, transparent));
 }
 footer .shell {
+  margin-top: 2.4rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+.foot-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
-  margin-top: 2.4rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--line);
 }
-footer span {
+.brand-foot span {
   color: var(--text-secondary);
   font: 0.68rem/2 var(--hud);
 }
-footer a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font: 0.7rem/1 var(--hud);
-  letter-spacing: 0.14em;
+.keys {
+  margin: 0;
+  font: 0.7rem/2 var(--hud);
+  color: var(--muted);
 }
-footer a:hover { color: var(--acid); }
-.links {
+.keys kbd {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+nav.links {
   display: flex;
   flex-wrap: wrap;
   gap: 1.2rem;
+  font: 0.7rem/1 var(--hud);
+  letter-spacing: 0.14em;
 }
+nav.links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+nav.links a:hover { color: var(--acid); }
 
 /* ---------- Legacy button classes ---------- */
 .btn {
